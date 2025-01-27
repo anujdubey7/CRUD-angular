@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>Edit Product</h2>
+<form [formGroup]="productForm" class="p-4">
+  <!-- Product Name -->
+  <mat-form-field appearance="fill" class="w-full mb-4">
+    <mat-label>Product Name</mat-label>
+    <input matInput formControlName="name" placeholder="Enter product name">
+    <mat-error *ngIf="productForm.get('name')?.hasError('required')">Name is required</mat-error>
+    <mat-error *ngIf="productForm.get('name')?.hasError('minlength')">Minimum 3 characters</mat-error>
+  </mat-form-field>
+
+  <!-- Price -->
+  <mat-form-field appearance="fill" class="w-full mb-4">
+    <mat-label>Price</mat-label>
+    <input matInput formControlName="price" type="number" placeholder="Enter product price">
+    <mat-error *ngIf="productForm.get('price')?.hasError('required')">Price is required</mat-error>
+    <mat-error *ngIf="productForm.get('price')?.hasError('min')">Price must be greater than 0</mat-error>
+  </mat-form-field>
+
+  <!-- Category -->
+  <div>
+    <label class="block text-lg font-medium text-gray-800 mb-2">Category</label>
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Select Category</mat-label>
+      <mat-select formControlName="category" class="text-gray-700">
+        <ng-container *ngFor="let group of productCategory">
+          <mat-optgroup [label]="group.name" [disabled]="group.disabled">
+            <ng-container *ngFor="let item of group.categories">
+              <mat-option [value]="item.value">{{ item.viewValue }}</mat-option>
+            </ng-container>
+          </mat-optgroup>
+        </ng-container>
+        
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Manufacture Date -->
+  <mat-form-field appearance="fill" class="w-full mb-4">
+    <mat-label>Manufacture Date</mat-label>
+    <input matInput formControlName="mfd" [matDatepicker]="picker" placeholder="Select date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Stock Status -->
+  <div>
+    <label class="block text-lg font-medium text-gray-800 mb-2">Stock Status</label>
+    <mat-radio-group formControlName="stockStatus" aria-label="Select stock status" class="flex space-x-6">
+      <mat-radio-button value="Available" >Available</mat-radio-button>
+      <mat-radio-button value="Out of Stock">Out of Stock</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <!-- Discount -->
+  <mat-form-field appearance="fill" class="w-full mb-4">
+    <mat-label>Discount (%)</mat-label>
+    <input matInput formControlName="discount" type="number" placeholder="Enter discount">
+    <mat-error *ngIf="productForm.get('discount')?.hasError('min')">Minimum 0%</mat-error>
+    <mat-error *ngIf="productForm.get('discount')?.hasError('max')">Maximum 100%</mat-error>
+  </mat-form-field>
+
+  <!-- Description -->
+  <mat-form-field appearance="fill" class="w-full mb-4">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" placeholder="Enter description"></textarea>
+    <mat-hint>Max 200 characters</mat-hint>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+  </div>
+</form>

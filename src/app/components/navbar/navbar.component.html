@@ -1,0 +1,26 @@
+<nav class="flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-t-3">
+    <div class="flex justify-between w-full lg:w-auto lg:border-b-0 border-b-2 border-gray-300 pb-5 lg:pb-0 pl-6 pr-2">
+        <div class="flex items-center flex-shrink-0 text-gray-800 mr-16">
+            <span class="font-semibold text-xl tracking-tight">CRUD App</span>
+        </div>
+        <div class="block lg:hidden">
+            <button id="nav"
+                class="flex items-center px-3 py-2 border-2 rounded text-green-700 border-green-700 hover:text-green-700 hover:border-green-700">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="menu w-full lg:one flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8">
+        <div class="flex ml-auto">
+            <button mat-button [matMenuTriggerFor]="login" class="w-10 font-extrabold">Login</button>
+            <mat-menu #login="matMenu">
+                <button mat-menu-item class="mr-2" routerLink="seller-login">Login as Seller</button>
+                <button mat-menu-item routerLink="visitor-login">Login as Visitor</button>
+            </mat-menu>
+        </div>
+    </div>
+</nav>

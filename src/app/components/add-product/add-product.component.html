@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+<div class="bg-white">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmitForm()" class="bg-zinc-100 p-8  shadow-lg rounded-lg max-w-3xl mx-auto space-y-6">
+    <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Add New Product</h2>
+  
+    <div class="flex flex-col space-y-4">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Product Name</mat-label>
+        <input matInput formControlName="name" placeholder="Ex. HeadPhones" type="text" class="text-gray-700">
+      </mat-form-field>
+    </div>
+  
+    <div class="flex flex-col space-y-1">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price" type="number" class="text-gray-700">
+      </mat-form-field>
+    </div>
+    <div class="flex flex-col space-y-1">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Discount %</mat-label>
+        <input matInput formControlName="discount" type="number" class="text-gray-700">
+      </mat-form-field>
+    </div>
+  
+    <div id="demo11" class="flex flex-col space-y-1">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Manufacture Date</mat-label>
+        <input matInput formControlName="manufactureDate" [matDatepicker]="picker" class="text-gray-700">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  
+    <div>
+      <label class="block text-lg font-medium text-gray-800 mb-2">Stock Status</label>
+      <mat-radio-group formControlName="stockStatus" aria-label="Select stock status" class="flex space-x-6">
+        <mat-radio-button value="Available" >Available</mat-radio-button>
+        <mat-radio-button value="Out of Stock">Out of Stock</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  
+    <div>
+      <label class="block text-lg font-medium text-gray-800 mb-2">Category</label>
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Select Category</mat-label>
+        <mat-select formControlName="category" class="text-gray-700">
+          <ng-container *ngFor="let group of productCategory">
+            <mat-optgroup [label]="group.name" [disabled]="group.disabled">
+              <ng-container *ngFor="let item of group.categories">
+                <mat-option [value]="item.value">{{ item.viewValue }}</mat-option>
+              </ng-container>
+            </mat-optgroup>
+          </ng-container>
+          
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div id="demo" class="flex flex-col space-y-1">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Tell about your Product</mat-label>
+        <textarea matInput formControlName="description" placeholder="Ex. This product is a..." class="text-gray-700"></textarea>
+      </mat-form-field>
+    </div>
+  
+    <div class="flex flex-col space-y-1">
+        <label for="productImage" class="block text-lg font-medium text-gray-800">Upload Product Image</label>
+        <input 
+          id="productImage" 
+          type="file" 
+          accept="image/*" 
+          class="border p-2 rounded-lg bg-slate-400">
+      </div>
+      
+  
+    <div class="text-center mt-6">
+      <button type="submit"
+        class="px-8 py-2 text-white font-medium bg-teal-700 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300 focus:outline-none rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out">
+        Submit
+      </button>
+    </div>
+  </form>
+  
+</div>

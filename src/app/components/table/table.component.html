@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+<div class="main-body px-40 bg-gray-100 min-h-screen pt-5">
+
+<!-- {} [] * -->
+
+  <!-- Filter Section -->
+  <div class="mb-6 flex justify-between items-center">
+    <div class="mb-6 mt-6 flex justify-between items-center">
+      <div class="relative w-full max-w-md">
+        <input
+          type="text"
+          placeholder="Search products..."
+          class="w-full px-6 py-3 border border-gray-300 rounded-lg shadow-sm "
+          (input)="onSearch($event)"
+          #input
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="absolute right-3 top-3 h-5 w-5 text-gray-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-4.35-4.35M16.65 9.75a6.9 6.9 0 11-13.8 0 6.9 6.9 0 0113.8 0z"
+          />
+        </svg>
+      </div>
+    </div>
+    
+    
+    <button mat-fab aria-label="Add Product" routerLink="/add-product" class="ml-4 bg-white hover:bg-gray-300 text-white">
+      <mat-icon class="font-bold">add</mat-icon>
+    </button>
+  </div>
+
+  <div class="table-container bg-white shadow-md rounded-3xl overflow-hidden">
+    <table mat-table [dataSource]="dataSource" matSort class="w-full text-left">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">ID</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2">{{row.id}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">Product Name</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2">{{row.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">Price</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2">{{row.price | currency: 'INR'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">Email</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2">{{row.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">Category</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2">{{row.category}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="stockStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">Stock Status</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2"
+        [ngClass]="{'text-green-600': row.stockStatus==='Available', 'text-red-600': row.stockStatus==='Out of Stock'}">{{row.stockStatus}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="discount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">Discount</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2 text-green-600">{{row.discount}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="manufactureDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-200 text-gray-700">Manufacture Date</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2">{{row.manufactureDate | date}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="px-4 py-2 bg-gray-200 text-gray-700">Actions</th>
+        <td mat-cell *matCellDef="let row" class="px-4 py-2 space-x-2">
+          <button mat-icon-button color="primary" class="text-green-500 hover:text-green-500" (click)="onEdit(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" class="text-red-500 hover:text-red-700" (click)="onDelete(row.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-200"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center py-4" colspan="8">No data Available</td>
+      </tr>
+    </table>
+
+    <mat-paginator class="bg-gray-50 p-4 border-t" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

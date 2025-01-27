@@ -1,0 +1,15 @@
+<!-- {} [] * -->
+
+<body class="bg-gray-200 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-xs md:max-w-md w-full">
+        <div id="login-form">
+            <mat-progress-bar *ngIf="isLoading" mode="buffer"></mat-progress-bar>
+            <h2 class="text-xl md:text-2xl font-bold text-center text-gray-800 mb-6">Log In</h2>
+            <form>
+                <input type="email" placeholder="Email" [(ngModel)]="adminDetail.emailId" name="emailId" class="w-full mb-4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required />
+                <input type="password" placeholder="Password" [(ngModel)]="adminDetail.password" name="password" class="w-full mb-6 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required />
+                <button type="submit" class="w-full bg-purple-500 text-white py-2 md:py-3 rounded-lg font-semibold hover:bg-purple-600 transition duration-200" (click)="adminLogin()">Log In</button>
+            </form>
+        </div>
+    </div>
+</body>
